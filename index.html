@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AGE CALCULATOR 1</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&amp;display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0af1ed;
+            ;
+        }
+
+        .container {
+            width: 42%;
+            min-width: 450px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            padding: 50px 30px;
+            transform: translate(-50%, -50%);
+        }
+
+        .container * {
+            font-family: "Poppins", sans-serif;
+            outline: none;
+            border: none;
+        }
+
+        .top {
+            background-color: #080808;
+            padding: 20px 20px;
+            border-radius: 8px;
+            box-shadow: 0 15px 20px rgba(0, 0, 0, 0.3);
+            margin-bottom: 50px;
+        }
+
+        input {
+            width: 65%;
+            padding: 5px 15px;
+            font-size: 12px;
+        }
+
+        input,
+        button {
+            height: 45px;
+            background-color: #ffffff;
+            color: #080808;
+            font-weight: 500;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 30%;
+            float: right;
+        }
+
+        .bottom {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .bottom div {
+            height: 90px;
+            width: 90px;
+            background-color: #080808;
+            border-radius: 5px;
+            color: #ffffff;
+            display: grid;
+            place-items: center;
+            padding: 18px 0;
+            box-shadow: 0 15px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        p {
+            font-size: 13px;
+            color: #707070;
+            font-weight: 400;
+        }
+
+        span {
+            font-size: 28px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="top">
+            <input type="date" name="b-date" id="b-date">
+            <button>Calculate</button>
+        </div>
+        <div class="bottom">
+            <div class="year">
+                <span id="years">-</span>
+                <p>Years</p>
+            </div>
+            <div class="month">
+                <span id="months">-</span>
+                <p>Months</p>
+            </div>
+            <div class="day">
+                <span id="days">-</span>
+                <p>Days</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        const bdateElement = document.getElementById("b-date");
+        const btnElement = document.querySelector('button');
+        const yearElement = document.getElementById("years");
+        const monthElement = document.getElementById("months");
+        const dayElement = document.getElementById("days");
+
+        btnElement.addEventListener("click", () => {
+            const bdateValue = bdateElement.value;
+
+            // if(bdateValue === ""){
+
+            // }
+
+            const userDate = new Date(bdateValue);
+            const currDate = new Date();
+
+            let years = currDate.getFullYear() - userDate.getFullYear();
+            let months = currDate.getMonth() - userDate.getMonth();
+            let days = currDate.getDate() - userDate.getDate();
+
+            if (months < 0) {
+                years -= 1;
+                months += 12;
+            }
+
+            if (days < 0) {
+                months -= 1;
+                const previousMonth = new Date(currDate.getFullYear(), currDate.getMonth(), 0);
+                days += previousMonth.getDate();
+            }
+
+            yearElement.innerText = `${years}`
+            monthElement.innerText = `${months}`
+            dayElement.innerText = `${days}`
+        });
+    </script>
+</body>
+
+</html>
