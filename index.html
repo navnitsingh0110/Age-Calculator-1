@@ -16,7 +16,6 @@
 
         body {
             background-color: #0af1ed;
-            ;
         }
 
         .container {
@@ -56,11 +55,15 @@
             color: #080808;
             font-weight: 500;
             border-radius: 5px;
+            cursor: pointer;
         }
 
         button {
             width: 30%;
-            float: right;
+        }
+
+        button:hover {
+            background-color: #707070;
         }
 
         .bottom {
@@ -91,6 +94,43 @@
             font-size: 28px;
             font-weight: 500;
         }
+
+        .reset-btn-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        #reset-btn {
+            width: 40%;
+            border: 1px solid black;
+            box-shadow: 0 15px 20px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            background-color: #f4f4f4;
+            color: black;
+            font-size: 1rem;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: all 0.3s ease-in-out;
+            /* Smooth transitions */
+        }
+
+        #reset-btn:hover {
+            background-color: #707070;
+            /* Lighter background on hover */
+            color: #ffffff;
+            /* Slightly darker text */
+            transform: scale(1.05);
+            /* Subtle scaling effect */
+            box-shadow: 0 20px 25px rgba(0, 0, 0, 0.4);
+            /* Enhanced shadow */
+        }
+
+        #reset-btn:active {
+            transform: scale(0.98);
+            /* Pressed effect */
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+            /* Softer shadow on click */
+        }
     </style>
 </head>
 
@@ -98,7 +138,7 @@
     <div class="container">
         <div class="top">
             <input type="date" name="b-date" id="b-date">
-            <button>Calculate</button>
+            <button id="calculate-btn">Calculate</button>
         </div>
         <div class="bottom">
             <div class="year">
@@ -114,21 +154,22 @@
                 <p>Days</p>
             </div>
         </div>
+        <!-- Reset button positioned below the calculated age and centered -->
+        <div class="reset-btn-container">
+            <button id="reset-btn">Reset</button>
+        </div>
     </div>
+
     <script>
         const bdateElement = document.getElementById("b-date");
-        const btnElement = document.querySelector('button');
+        const calculateBtn = document.getElementById("calculate-btn");
+        const resetBtn = document.getElementById("reset-btn");
         const yearElement = document.getElementById("years");
         const monthElement = document.getElementById("months");
         const dayElement = document.getElementById("days");
 
-        btnElement.addEventListener("click", () => {
+        calculateBtn.addEventListener("click", () => {
             const bdateValue = bdateElement.value;
-
-            // if(bdateValue === ""){
-
-            // }
-
             const userDate = new Date(bdateValue);
             const currDate = new Date();
 
@@ -147,9 +188,16 @@
                 days += previousMonth.getDate();
             }
 
-            yearElement.innerText = `${years}`
-            monthElement.innerText = `${months}`
-            dayElement.innerText = `${days}`
+            yearElement.innerText = `${years}`;
+            monthElement.innerText = `${months}`;
+            dayElement.innerText = `${days}`;
+        });
+
+        resetBtn.addEventListener("click", () => {
+            bdateElement.value = "";
+            yearElement.innerText = "-";
+            monthElement.innerText = "-";
+            dayElement.innerText = "-";
         });
     </script>
 </body>
